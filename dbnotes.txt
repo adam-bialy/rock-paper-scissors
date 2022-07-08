@@ -1,0 +1,7 @@
+DATABASES
+
+session table:
+user_id, username, games_played, games_won, session_date
+
+game table:
+game_id, user_id, won, starttime, startcredits

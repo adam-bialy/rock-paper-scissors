@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="../static/style.css">
+  <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+  <h2>Hello {{username}}</h2>
+  <h3>You have {{credits}} credits</h3>
+  <div class="add-creds">
+    <form class="" action="/add" method="post">
+      <button type="submit" name="add" id="add" {% if add_disabled %} disabled {% endif %}>Add 10 credits</button>
+    </form>
+  </div>
+  <div class="game-div">
+    {% if message != None %}
+    <h3>{{message}}</h3>
+    {% endif %}
+    <form class="" action="/game" method="post">
+      <button type="submit" name="rock" value="rock" {% if game_disabled %} disabled {% endif %}><img src="{{url_for('static', filename='/gameicons/rock.png')}}" alt=""></button>
+      <button type="submit" name="paper" value="paper" {% if game_disabled %} disabled {% endif %}><img src="{{url_for('static', filename='/gameicons/paper.png')}}" alt=""></button>
+      <button type="submit" name="scissors" value="scissors" {% if game_disabled %} disabled {% endif %}><img src="{{url_for('static', filename='/gameicons/scissors.png')}}" alt=""></button>
+    </form>
+    <h3>You've played {{games_played}} games.</h3>
+    <h3>You've won {{games_won}} games.</h3>
+    {% if game_disabled and add_disabled %}
+    <h3>Game over! You don't have enough credits to continue.</h3>
+    {% elif game_disabled %}
+    <h3>You don't have enough credits to play, but you can add more above.</h3>
+    {% endif %}
+    <a href="{{url_for('submit')}}"><h3>Finish and submit your stats</h3></a>
+
+    <div class="container">
+      <a href="{{url_for('home')}}">
+        <h2>Go back to start screen</h2>
+      </a>
+      <a href="{{url_for('stats')}}">
+        <h2>Show today's stats</h2>
+      </a>
+      <h3></h3>
+    </div>
+
+  </div>
+</body>
+
+</html>
