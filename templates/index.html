@@ -1,21 +1,18 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<body>
-  <h1>Rock Paper Scissors Game</h1>
+  <h1>Rock Paper Scissors</h1>
   <div class="container">
     <form class="" action="/" method="post">
-      <label for="username">Enter your username</label>
+      <h3>Enter your name and start playing</h3>
       <input type="text" name="username" value="" placeholder="Your username...">
-      <button type="submit" name="login">Start session</button>
+      <button class="btn btn-primary" type="submit" name="login">Start playing</button>
     </form>
   </div>
-  <div class="container">
+  <div>
     <a href="{{url_for('stats')}}">
       <h2>Show today's stats</h2>
     </a>
   </div>
-
-</body>
 
 {% endblock %}

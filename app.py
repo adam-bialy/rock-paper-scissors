@@ -59,7 +59,8 @@ def add_creds():
 def stats():
     results = get_top()
     results = pd.DataFrame(results, columns=["User", "Games played", "Games won"])
-    return render_template("stats.html", table=Markup(results.to_html(index_names=False, escape=False)))
+    table = Markup(results.to_html(index_names=False, escape=False, index=False))
+    return render_template("stats.html", table=table)
 
 
 @app.route("/submit", methods=["GET"])
@@ -69,4 +70,4 @@ def submit():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=8000)

@@ -1,13 +1,17 @@
 body {
   background-color: lightblue;
-  text-align: center;
 }
 
-.container {
+.main-div {
   text-align: center;
-  margin: 10% auto;
+  padding: 2% 0;
 }
 
 table {
   margin: auto;
+}
+
+th, td {
+  width: 10rem;
+  text-align: center;
 }

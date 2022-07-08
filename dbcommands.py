@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, select, desc
+from sqlalchemy import create_engine, select, desc, asc
 from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import declarative_base, Session
 from datetime import date, datetime
@@ -55,7 +55,8 @@ def update_user(**params):
 def get_top():
     with engine.connect() as conn:
         command = select(User.username, User.games_played, User.games_won).\
-            order_by(desc("games_won")).limit(5)
+            where(User.session_date == date.today()).\
+            order_by(desc("games_won"), desc("games_played"), asc("username")).limit(5)
         return conn.execute(command).fetchall()
 
 
