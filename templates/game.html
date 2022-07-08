@@ -19,7 +19,7 @@
     {% if message != None %}
     <h3>{{message}}</h3>
     {% endif %}
-    <form class="" action="/game" method="post">
+    <form class="" action="/play" method="post">
       <button type="submit" name="rock" value="rock" {% if game_disabled %} disabled {% endif %}><img src="{{url_for('static', filename='/gameicons/rock.png')}}" alt=""></button>
       <button type="submit" name="paper" value="paper" {% if game_disabled %} disabled {% endif %}><img src="{{url_for('static', filename='/gameicons/paper.png')}}" alt=""></button>
       <button type="submit" name="scissors" value="scissors" {% if game_disabled %} disabled {% endif %}><img src="{{url_for('static', filename='/gameicons/scissors.png')}}" alt=""></button>

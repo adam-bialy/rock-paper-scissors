@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, session
 from rockpaperscissors import play_rps
-from dbcommands import create_user
+from dbcommands import create_user, write_game, update_user
 
 
 app = Flask(__name__)
@@ -20,19 +20,31 @@ def home():
             session["games_played"] = 0
             session["games_won"] = 0
             session["message"] = "Start playing! Choose your bet below:"
+            session["user_id"] = create_user(**session)
+            print(session["user_id"])
             return redirect("/play")
 
 
-@app.route("/play")
+@app.route("/play", methods=["GET", "POST"])
 def play():
     if request.method == "GET":
         if session.get("username", None) is None:
             return redirect("/")
         else:
-            print(session.items())
             return render_template("game.html", **session,
                                    game_disabled=True if session["credits"] < 3 else False,
                                    add_disabled=True if session["credits"] > 0 else False)
+    if request.method == "POST":
+        session["games_played"] += 1
+        choice = list(request.form)[0]
+        result, message = play_rps(choice)
+        write_game(session["user_id"], result == "win", session["credits"])
+        session["credits"] -= 3
+        session["message"] = message
+        if result == "win":
+            session["credits"] += 4
+            session["games_won"] += 1
+        return redirect("/play")
 
 
 @app.route("/add", methods=["POST"])
@@ -42,19 +54,6 @@ def add_creds():
         return redirect("/play")
 
 
-@app.route("/game", methods=["POST"])
-def game():
-    session["games_played"] += 1
-    choice = list(request.form)[0]
-    result, message = play_rps(choice)
-    session["credits"] -= 3
-    session["message"] = message
-    if result == "win":
-        session["credits"] += 4
-        session["games_won"] += 1
-    return redirect("/play")
-
-
 @app.route("/stats", methods=["GET"])
 def stats():
     return redirect("/")
@@ -62,10 +61,7 @@ def stats():
 
 @app.route("/submit", methods=["GET"])
 def submit():
-    """
-    here I have to implement writing final statistics to the database
-    """
-    create_user(**session)
+    update_user(**session)
     return redirect("/stats")
 
 
