@@ -1,5 +1,5 @@
-from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean
+from sqlalchemy import create_engine, select, desc
+from sqlalchemy import Column, Integer, String, Date, DateTime, Boolean, ForeignKey
 from sqlalchemy.orm import declarative_base, Session
 from datetime import date, datetime
 
@@ -23,7 +23,7 @@ class Game(base):
     __tablename__ = "game"
 
     game_id = Column(Integer, primary_key=True, autoincrement=True)
-    user_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, ForeignKey("user.user_id"), nullable=False)
     won = Column(Boolean, nullable=False)
     credits_before = Column(Integer, nullable=False)
     timestamp = Column(DateTime, nullable=False)
@@ -50,6 +50,13 @@ def update_user(**params):
         user = session.query(User).filter(User.user_id == params["user_id"])
         user.update({"games_played": params["games_played"], "games_won": params["games_won"]})
         session.commit()
+
+
+def get_top():
+    with engine.connect() as conn:
+        command = select(User.username, User.games_played, User.games_won).\
+            order_by(desc("games_won")).limit(5)
+        return conn.execute(command).fetchall()
 
 
 if __name__ == "__main__":

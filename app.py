@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, Markup
 from rockpaperscissors import play_rps
-from dbcommands import create_user, write_game, update_user
+from dbcommands import create_user, write_game, update_user, get_top
+import pandas as pd
 
 
 app = Flask(__name__)
@@ -56,7 +57,9 @@ def add_creds():
 
 @app.route("/stats", methods=["GET"])
 def stats():
-    return redirect("/")
+    results = get_top()
+    results = pd.DataFrame(results, columns=["User", "Games played", "Games won"])
+    return render_template("stats.html", table=Markup(results.to_html(index_names=False, escape=False)))
 
 
 @app.route("/submit", methods=["GET"])

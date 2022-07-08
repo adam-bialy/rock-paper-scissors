@@ -1,10 +1,17 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+{% extends "layout.html" %}
+{% block content %}
 
-  </body>
-</html>
+<body>
+  <h1>Statistics for today</h1>
+  <div class="container">
+    {{table}}
+  </div>
+  <div class="container">
+    <a href="{{url_for('home')}}">
+      <h2>Back to main page</h2>
+    </a>
+  </div>
+
+</body>
+
+{% endblock %}
