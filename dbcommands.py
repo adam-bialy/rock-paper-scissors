@@ -60,5 +60,10 @@ def get_top():
         return conn.execute(command).fetchall()
 
 
+"""
+The part below is only for creating new tables in the users.db database file.
+This has already been done. The database is empty and ready to use.
+"""
+
 if __name__ == "__main__":
     base.metadata.create_all(engine)
