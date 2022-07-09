@@ -1,10 +1,15 @@
 body {
-  background-color: lightblue;
+  background-color: #EEEEEE;
+  color: #000000;
 }
 
 .main-div {
   text-align: center;
-  padding: 2% 0;
+  padding: 3% 0;
+}
+
+.container {
+  margin: 3% auto;
 }
 
 table {
@@ -14,4 +19,44 @@ table {
 th, td {
   width: 10rem;
   text-align: center;
+}
+
+form {
+  margin: 1% 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 1rem;
+}
+
+.btn-primary {
+  background-color: #34B3F1;
+  border-color: #34B3F1;
+}
+
+.btn-primary:hover {
+  background-color: #F15412;
+  border-color: #F15412;
+  color: white;
+}
+
+.btn-primary:disabled {
+  background-color: #6ec5f0;
+  border-color: #6ec5f0;
+}
+
+a {
+  color: #F15412;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #F15412;
+  text-decoration: underline;
+}
+
+.rps {
+  max-width: 40%;
+  border-radius: 10px;
 }

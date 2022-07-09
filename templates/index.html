@@ -2,6 +2,7 @@
 {% block content %}
 
   <h1>Rock Paper Scissors</h1>
+
   <div class="container">
     <form class="" action="/" method="post">
       <h3>Enter your name and start playing</h3>
@@ -9,7 +10,8 @@
       <button class="btn btn-primary" type="submit" name="login">Start playing</button>
     </form>
   </div>
-  <div>
+  
+  <div class="container">
     <a href="{{url_for('stats')}}">
       <h2>Show today's stats</h2>
     </a>
